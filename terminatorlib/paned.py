@@ -109,6 +109,7 @@ class Paned(Container):
                     'move-tab': top_window.move_tab,
                     'maximise': [top_window.zoom, False],
                     'tab-new': [top_window.tab_new, widget],
+                    'clone-tab': [top_window.clone_tab, widget],
                     'navigate': top_window.navigate_terminal,
                     'rotate-cw': [top_window.rotate, True],
                     'rotate-ccw': [top_window.rotate, False]}

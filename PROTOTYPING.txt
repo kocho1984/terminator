@@ -1,0 +1,15 @@
+TODO:
+
+1. How to read env from the bash process?
+
+Read from te current process
+cat /proc/self/environ | tr '\0' '\n'
+
+https://stackoverflow.com/questions/56356113/whats-the-difference-between-proc-self-and-proc
+
+
+2. How to run bash process with applying env?
+3. Is it possible to just clone bass process with its history?
+
+
+https://unix.stackexchange.com/questions/38205/change-environment-of-a-running-process

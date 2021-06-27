@@ -275,6 +275,10 @@ class Window(Container, Gtk.Window):
         self.present()
         return self.get_child().newtab(debugtab, cwd=cwd, profile=profile)
 
+    def clone_tab(self, widget=None, debugtab=False, _param1=None, _param2=None):
+        dbg("MaKo clone_tab")
+        exit()
+
     def on_delete_event(self, window, event, data=None):
         """Handle a window close request"""
         maker = Factory()
@@ -423,6 +427,7 @@ class Window(Container, Gtk.Window):
                        'ungroup-tab': self.ungroup_tab,
                        'move-tab': self.move_tab,
                        'tab-new': [self.tab_new, widget],
+                       'clone-tab': [self.clone_tab, widget],
                        'navigate': self.navigate_terminal}
 
             for signal in signals:

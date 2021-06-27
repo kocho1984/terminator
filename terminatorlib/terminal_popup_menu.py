@@ -136,6 +136,11 @@ class TerminalPopupMenu(object):
                 terminal))
             menu.append(item)
 
+            item = Gtk.MenuItem.new_with_label(_('Clone Tab'))
+            item.connect('activate', lambda x: terminal.emit('clone-tab', False,
+                terminal))
+            menu.append(item)
+
             if self.terminator.debug_address is not None:
                 item = Gtk.MenuItem.new_with_mnemonic(_('Open _Debug Tab'))
                 item.connect('activate', lambda x:

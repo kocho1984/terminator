@@ -53,6 +53,8 @@ class Terminal(Gtk.VBox):
         'rotate-ccw': (GObject.SignalFlags.RUN_LAST, None, ()),
         'tab-new': (GObject.SignalFlags.RUN_LAST, None,
             (GObject.TYPE_BOOLEAN, GObject.TYPE_OBJECT)),
+        'clone-tab': (GObject.SignalFlags.RUN_LAST, None,
+            (GObject.TYPE_BOOLEAN, GObject.TYPE_OBJECT)),
         'tab-top-new': (GObject.SignalFlags.RUN_LAST, None, ()),
         'focus-in': (GObject.SignalFlags.RUN_LAST, None, ()),
         'focus-out': (GObject.SignalFlags.RUN_LAST, None, ()),
