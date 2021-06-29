@@ -11,6 +11,8 @@ from .util import dbg, err
 from .translation import _
 from .signalman import Signalman
 
+from .exportenv import setCloningMode
+
 # pylint: disable-msg=R0921
 class Container(object):
     """Base class for Terminator Containers"""
@@ -68,11 +70,23 @@ class Container(object):
         return None
 
     def split_horiz(self, widget, cwd=None):
+        setCloningMode(False)
         """Split this container horizontally"""
         return(self.split_axis(widget, True, cwd))
 
     def split_vert(self, widget, cwd=None):
+        setCloningMode(False)
         """Split this container vertically"""
+        return(self.split_axis(widget, False, cwd))
+
+    def clone_split_horiz(self, widget, cwd=None):
+        """Split this container horizontally"""
+        setCloningMode(True)
+        return(self.split_axis(widget, True, cwd))
+
+    def clone_split_vert(self, widget, cwd=None):
+        setCloningMode(True)    
+        """Split this container horizontally"""
         return(self.split_axis(widget, False, cwd))
 
     def split_axis(self, widget, vertical=True, cwd=None, sibling=None, siblinglast=None):

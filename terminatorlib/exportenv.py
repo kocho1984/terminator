@@ -2,9 +2,23 @@ import os
 import time
 from gi.repository import Gtk
 
+cloningMode = False
+
+def setCloningMode(value):
+    global cloningMode
+    cloningMode = value
+
+def getCloningMode():
+    return cloningMode
+
+def exportEnvNEW():
+    pass
+
 
 def exportEnv():
-    #os.system("espeak dupa")
+    if not getCloningMode():
+        return
+
     os.system("xdotool click 1") 
 
     os.system("xdotool key Control_L+z") 

@@ -256,6 +256,8 @@ class Notebook(Container, Gtk.Notebook):
         signals = {'close-term': self.wrapcloseterm,
                    'split-horiz': self.split_horiz,
                    'split-vert': self.split_vert,
+                   'clone-split-horiz': self.clone_split_horiz,
+                   'clone-split-vert': self.clone_split_vert,
                    'title-change': self.propagate_title_change,
                    'unzoom': self.unzoom,
                    'tab-change': top_window.tab_change,

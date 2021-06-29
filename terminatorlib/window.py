@@ -13,10 +13,8 @@ import uuid
 import gi
 from gi.repository import GObject
 from gi.repository import Gtk, Gdk
-
-from .exportenv import exportEnv
-
 from .util import dbg, err, make_uuid, display_manager
+from .exportenv import exportEnv
 
 try:
     from gi.repository import GdkX11
@@ -342,7 +340,8 @@ class Window(Container, Gtk.Window):
 
     def tab_new(self, widget=None, debugtab=False, _param1=None, _param2=None):
         """Make a new tab"""
-        exportEnv()
+        if exportenv:
+            exportEnv()
         
         cwd = None
         profile = None
@@ -519,6 +518,8 @@ class Window(Container, Gtk.Window):
                        'title-change': self.title.set_title,
                        'split-horiz': self.split_horiz,
                        'split-vert': self.split_vert,
+                       'clone-split-horiz': self.clone_split_horiz,
+                       'clone-split-vert': self.clone_split_vert,
                        'unzoom': self.unzoom,
                        'tab-change': self.tab_change,
                        'group-all': self.group_all,
@@ -566,7 +567,12 @@ class Window(Container, Gtk.Window):
 
     def split_axis(self, widget, vertical=True, cwd=None, sibling=None, widgetfirst=True):
         """Split the window"""
+
         exportEnv()
+
+        #dbg("cloningMode: %s" % getCloningMode())
+        #exit()
+
         if self.get_property('term_zoomed') == True:
             err("You can't split while a terminal is maximised/zoomed")
             return

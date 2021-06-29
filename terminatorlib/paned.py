@@ -11,7 +11,8 @@ from .util import dbg, err,  enumerate_descendants
 from .terminator import Terminator
 from .factory import Factory
 from .container import Container
-from .exportenv import exportEnv
+from .exportenv import exportEnv, getCloningMode
+
 
 # pylint: disable-msg=R0921
 # pylint: disable-msg=E1101
@@ -40,6 +41,7 @@ class Paned(Container):
             widgetfirst=True):
         """Default axis splitter. This should be implemented by subclasses"""
         exportEnv()
+
         order = None
 
         self.remove(widget)
@@ -98,6 +100,8 @@ class Paned(Container):
             signals = {'close-term': self.wrapcloseterm,
                     'split-horiz': self.split_horiz,
                     'split-vert': self.split_vert,
+                    'clone-split-horiz': self.clone_split_horiz,
+                    'clone-split-vert': self.clone_split_vert,
                     'title-change': self.propagate_title_change,
                     'resize-term': self.resizeterm,
                     'size-allocate': self.new_size,
