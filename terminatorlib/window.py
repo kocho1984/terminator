@@ -365,8 +365,6 @@ class Window(Container, Gtk.Window):
         setCloningMode(True)
         
         self.tab_new(widget, debugtab, _param1, _param2)
-        
-        setCloningMode(False)
 
     def on_delete_event(self, window, event, data=None):
         """Handle a window close request"""

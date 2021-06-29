@@ -48,7 +48,7 @@ def exportEnv():
     #exit()
 
     wait_2s()
-    #exit()
+    setCloningMode(False)
 
 
 def updateGUI():
