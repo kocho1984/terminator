@@ -14,7 +14,7 @@ import gi
 from gi.repository import GObject
 from gi.repository import Gtk, Gdk
 from .util import dbg, err, make_uuid, display_manager
-from .exportenv import exportEnv
+from .exportenv import exportEnv, setCloningMode
 
 try:
     from gi.repository import GdkX11
@@ -337,11 +337,9 @@ class Window(Container, Gtk.Window):
         maker = Factory()
         return(maker.isinstance(self.get_child(), 'Notebook'))
 
-
     def tab_new(self, widget=None, debugtab=False, _param1=None, _param2=None):
         """Make a new tab"""
-        if exportenv:
-            exportEnv()
+        exportEnv()
         
         cwd = None
         profile = None
@@ -364,21 +362,11 @@ class Window(Container, Gtk.Window):
         return self.get_child().newtab(debugtab, cwd=cwd, profile=profile)
 
     def clone_tab(self, widget=None, debugtab=False, _param1=None, _param2=None):
-        dbg("MaKo clone_tab +++")
-
-        #simulate_key()
-        exportEnv()
-
-        # thread = Thread(target = simulate_key )
-        # thread.start()
-        # thread.join()
-
-        dbg("MaKo clone_tab ---")
-
-        #wait_2s()
+        setCloningMode(True)
         
         self.tab_new(widget, debugtab, _param1, _param2)
-        #exit()
+        
+        setCloningMode(False)
 
     def on_delete_event(self, window, event, data=None):
         """Handle a window close request"""
