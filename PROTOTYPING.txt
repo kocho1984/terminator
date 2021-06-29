@@ -26,7 +26,8 @@ Current problems:
 
 3. /proc/$$/environ is readonly. Even root cannot write to it.
 
-4. Na ten moment nie wiem, jak uruchomić proces basha z zadanym skryptem (np. czytającym zmienne z pliku). Najprawdopodobniej nie da się tego zrobić.
+4. Jak uruchomić proces basha z zadanym skryptem (np. czytającym zmienne z pliku). 
+exec bash --rcfile <(cat /tmp/env.txt)
 
 wygenerowanie pliku ze zmiennymi środowiskoweymi
 env | sed -e 's/^/export /' > /tmp/env.txt
