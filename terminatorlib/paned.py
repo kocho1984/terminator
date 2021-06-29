@@ -4,12 +4,14 @@
 variants"""
 
 import time
+import os
 from gi.repository import GObject, Gtk, Gdk
 
 from .util import dbg, err,  enumerate_descendants
 from .terminator import Terminator
 from .factory import Factory
 from .container import Container
+from .exportenv import exportEnv
 
 # pylint: disable-msg=R0921
 # pylint: disable-msg=E1101
@@ -37,6 +39,7 @@ class Paned(Container):
     def split_axis(self, widget, vertical=True, cwd=None, sibling=None,
             widgetfirst=True):
         """Default axis splitter. This should be implemented by subclasses"""
+        exportEnv()
         order = None
 
         self.remove(widget)

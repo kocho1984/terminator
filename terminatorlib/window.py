@@ -2,12 +2,19 @@
 # GPL v2 only
 """window.py - class for the main Terminator window"""
 
+import os, time
+
+from pynput.keyboard import Key, Controller
+from threading import Thread
+
 import copy
 import time
 import uuid
 import gi
 from gi.repository import GObject
 from gi.repository import Gtk, Gdk
+
+from .exportenv import exportEnv
 
 from .util import dbg, err, make_uuid, display_manager
 
@@ -31,6 +38,84 @@ if display_manager() == 'X11':
     except (ImportError, ValueError):
         err('Unable to load Keybinder module. This means the \
 hide_window shortcut will be unavailable')
+
+
+def getXdotoolString(s):
+    result = ""
+    for i, c in enumerate(s):
+        if c == ' ': 
+            s[i] = "space"
+        elif c == '/': 
+            s[i] = "slash"
+        elif c == '.':
+            s[i] = "period"
+
+        #result += "xdotool key %s;" % c
+
+    
+    print(result)
+
+    return result
+
+
+# def exportEnv():
+#     os.system("espeak dupa")
+#     #os.system("xdotool click 1") 
+
+#     os.system("xdotool key Control_L+z") 
+#     #os.system("%s xdotool key KP_Enter" % getXdotoolString("bg"))
+#     #exportCmd = "env | sed -r 's/^/export /' > /tmp/env.txt"
+#     exportCmd1 = "set | sed -r "
+#     os.system("xdotool type '%s'" % exportCmd1)
+#     os.system("xdotool keydown apostrophe")
+#     os.system("xdotool keyup apostrophe")
+
+#     os.system("xdotool type '%s'" % "s/^/export /")
+
+#     os.system("xdotool keydown apostrophe")
+#     os.system("xdotool keyup apostrophe")
+    
+#     exportCmd2 = " > /tmp/env.txt"
+#     os.system("xdotool type '%s'" % exportCmd2)
+#     #exportCmd = "env  > /tmp/env.txt"
+#     #exportCmd = r'''env | awk '$0="export "$0' > /tmp/env.txt '''
+#    # os.system("xdotool type '%s'" % exportCmd)
+
+#     #xdotool keydown apostrophe    
+#     os.system("xdotool key KP_Enter")
+#     os.system("xdotool type '%s'" % "fg")
+#     os.system("xdotool key KP_Enter")
+#     #os.system("sed -i -e 's/^/export /' /tmp/env.txt")
+#     #exit()
+
+#     wait_2s()
+#     #exit()
+
+# def exportEnvpynput():
+#     keyboard = Controller()
+#     # with keyboard.pressed(Key.ctrl):
+#     #     keyboard.press('z')
+#     #     keyboard.release('z')
+#     exportCmd = "env | sed -r '%s' > /tmp/env.txt" % r"s/^/export /"
+#     keyboard.type(exportCmd)
+#     keyboard.press(Key.enter)
+#     keyboard.release(Key.enter)
+
+#     wait_2s()
+
+
+
+#     #updateGUI()
+
+# def updateGUI():
+#     '''Force update of GTK mainloop during a long-running process'''
+#     while Gtk.events_pending():
+#         Gtk.main_iteration()
+
+# def wait_2s():
+#     for i in range(2):
+#         time.sleep(0.2)
+#         updateGUI()
 
 # pylint: disable-msg=R0904
 class Window(Container, Gtk.Window):
@@ -254,8 +339,11 @@ class Window(Container, Gtk.Window):
         maker = Factory()
         return(maker.isinstance(self.get_child(), 'Notebook'))
 
+
     def tab_new(self, widget=None, debugtab=False, _param1=None, _param2=None):
         """Make a new tab"""
+        exportEnv()
+        
         cwd = None
         profile = None
 
@@ -273,11 +361,25 @@ class Window(Container, Gtk.Window):
             notebook = maker.make('Notebook', window=self)
         self.show()
         self.present()
+        
         return self.get_child().newtab(debugtab, cwd=cwd, profile=profile)
 
     def clone_tab(self, widget=None, debugtab=False, _param1=None, _param2=None):
-        dbg("MaKo clone_tab")
-        exit()
+        dbg("MaKo clone_tab +++")
+
+        #simulate_key()
+        exportEnv()
+
+        # thread = Thread(target = simulate_key )
+        # thread.start()
+        # thread.join()
+
+        dbg("MaKo clone_tab ---")
+
+        #wait_2s()
+        
+        self.tab_new(widget, debugtab, _param1, _param2)
+        #exit()
 
     def on_delete_event(self, window, event, data=None):
         """Handle a window close request"""
@@ -464,6 +566,7 @@ class Window(Container, Gtk.Window):
 
     def split_axis(self, widget, vertical=True, cwd=None, sibling=None, widgetfirst=True):
         """Split the window"""
+        exportEnv()
         if self.get_property('term_zoomed') == True:
             err("You can't split while a terminal is maximised/zoomed")
             return
