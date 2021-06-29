@@ -553,7 +553,6 @@ class Window(Container, Gtk.Window):
 
     def split_axis(self, widget, vertical=True, cwd=None, sibling=None, widgetfirst=True):
         """Split the window"""
-
         exportEnv()
 
         #dbg("cloningMode: %s" % getCloningMode())

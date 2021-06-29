@@ -3,6 +3,7 @@
 """notebook.py - classes for the notebook widget"""
 
 from functools import cmp_to_key
+from terminatorlib.exportenv import exportEnv
 from gi.repository import GObject
 from gi.repository import Gtk
 from gi.repository import Gdk
@@ -15,6 +16,8 @@ from .container import Container
 from .editablelabel import EditableLabel
 from .translation import _
 from .util import err, dbg, enumerate_descendants, make_uuid
+
+import os
 
 class Notebook(Container, Gtk.Notebook):
     """Class implementing a Gtk.Notebook container"""
@@ -141,6 +144,8 @@ class Notebook(Container, Gtk.Notebook):
 
     def split_axis(self, widget, vertical=True, cwd=None, sibling=None, widgetfirst=True):
         """Split the axis of a terminal inside us"""
+        exportEnv()
+
         dbg('called for widget: %s' % widget)
         order = None
         page_num = self.page_num(widget)
