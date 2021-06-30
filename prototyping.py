@@ -17,7 +17,7 @@ import os
 #         fcntl.ioctl(fd, termios.TIOCSTI, char)
 
 cmd = '''
-ls -al \
+ls -al;
 pwd
 '''
 os.system(cmd)

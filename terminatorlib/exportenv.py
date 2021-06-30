@@ -11,11 +11,32 @@ def setCloningMode(value):
 def getCloningMode():
     return cloningMode
 
-def exportEnvNEW():
-    pass
-
-
 def exportEnv():
+    if not getCloningMode():
+        return
+
+    cmd = '''
+    xdotool click 1;
+    xdotool key Control_L+z
+    xdotool type 'set | sed -r ';
+    xdotool keydown apostrophe;
+    xdotool keyup apostrophe;
+    xdotool type 's/^/export /';
+    xdotool keydown apostrophe;
+    xdotool keyup apostrophe;
+    xdotool type ' > /tmp/env.txt';
+    xdotool key KP_Enter;
+    xdotool type 'fg';
+    xdotool key KP_Enter;
+    '''
+    os.system(cmd)
+    
+    setCloningMode(False)
+
+    updateGUI()
+
+
+def exportEnvOLD():
     if not getCloningMode():
         return
 
@@ -47,8 +68,9 @@ def exportEnv():
     #os.system("sed -i -e 's/^/export /' /tmp/env.txt")
     #exit()
 
-    wait_2s()
     setCloningMode(False)
+
+    updateGUI()
 
 
 def updateGUI():
