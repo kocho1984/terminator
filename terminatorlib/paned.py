@@ -11,7 +11,7 @@ from .util import dbg, err,  enumerate_descendants
 from .terminator import Terminator
 from .factory import Factory
 from .container import Container
-from .exportenv import exportEnv, getCloningMode
+from .exportenv import exportEnv
 
 
 # pylint: disable-msg=R0921
