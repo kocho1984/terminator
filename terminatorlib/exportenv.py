@@ -15,8 +15,8 @@ def exportEnv():
     if not getCloningMode():
         return
 
+    #xdotool click 1;
     cmd = '''
-    xdotool click 1;
     xdotool key Control_L+z
     xdotool type 'set | sed -r ';
     xdotool keydown apostrophe;
