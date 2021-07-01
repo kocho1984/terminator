@@ -1,6 +1,7 @@
 import os
 import time
 from gi.repository import Gtk
+from .util import dbg
 
 cloningMode = False
 
@@ -16,8 +17,8 @@ def exportEnv():
         return
 
     cmd = '''
-    xdotool key Control_L+z
-    xdotool type 'set | sed -r ';
+    xdotool key Control_L+z;
+    xdotool type '{declare +x ; declare -x;} | sed -r ';
     xdotool keydown apostrophe;
     xdotool keyup apostrophe;
     xdotool type 's/^/export /';
@@ -29,8 +30,6 @@ def exportEnv():
     xdotool key KP_Enter;
     '''
     os.system(cmd)
-    
-    setCloningMode(False)
 
     updateGUI()
 

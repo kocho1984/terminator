@@ -30,6 +30,7 @@ from .signalman import Signalman
 from . import plugin
 from terminatorlib.layoutlauncher import LayoutLauncher
 from . import regex
+from .exportenv import getCloningMode, setCloningMode
 
 # pylint: disable-msg=R0904
 class Terminal(Gtk.VBox):
@@ -1465,6 +1466,9 @@ class Terminal(Gtk.VBox):
             dbg('spawning debug session with: %s:%s' % (details[0],
                 details[1]))
             command = 'telnet %s %s' % (details[0], details[1])
+        elif getCloningMode():
+            command = "exec bash --rcfile <(cat /tmp/env.txt)"
+            setCloningMode(False)
 
         # working directory set in layout config
         if self.directory:
@@ -1517,8 +1521,6 @@ class Terminal(Gtk.VBox):
                                                 None,
                                                 None)
         self.command = shell
-        dbg("MaKo_______________________%s" % args)
-        #exit()
 
         self.titlebar.update()
 
