@@ -17,8 +17,6 @@ from .editablelabel import EditableLabel
 from .translation import _
 from .util import err, dbg, enumerate_descendants, make_uuid
 
-import os
-
 class Notebook(Container, Gtk.Notebook):
     """Class implementing a Gtk.Notebook container"""
     window = None

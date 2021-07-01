@@ -133,15 +133,13 @@ class TerminalPopupMenu(object):
 
             item = Gtk.ImageMenuItem.new_with_label(_('Clone/Split Horizontally'))
             image = Gtk.Image()
-            image.set_from_icon_name('terminator_clone_horiz', Gtk.IconSize.MENU)
+            image.set_from_icon_name(APP_NAME + '_clone_horiz', Gtk.IconSize.MENU)
             item.set_image(image)
             if hasattr(item, 'set_always_show_image'):
                 item.set_always_show_image(True)
             item.connect('activate', lambda x: terminal.emit('clone-split-horiz',
                 self.terminal.get_cwd()))
             menu.append(item)
-
-            #exit()
 
             item = Gtk.ImageMenuItem.new_with_label(_('Clone/Split Vertically'))
             image = Gtk.Image()

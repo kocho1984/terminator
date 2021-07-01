@@ -70,12 +70,12 @@ class Container(object):
         return None
 
     def split_horiz(self, widget, cwd=None):
-        #setCloningMode(False)
+        setCloningMode(False)
         """Split this container horizontally"""
         return(self.split_axis(widget, True, cwd))
 
     def split_vert(self, widget, cwd=None):
-        #setCloningMode(False)
+        setCloningMode(False)
         """Split this container vertically"""
         return(self.split_axis(widget, False, cwd))
 

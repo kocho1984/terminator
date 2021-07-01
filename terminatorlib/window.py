@@ -2,11 +2,6 @@
 # GPL v2 only
 """window.py - class for the main Terminator window"""
 
-import os, time
-
-from pynput.keyboard import Key, Controller
-from threading import Thread
-
 import copy
 import time
 import uuid
@@ -280,13 +275,14 @@ class Window(Container, Gtk.Window):
             notebook = maker.make('Notebook', window=self)
         self.show()
         self.present()
-        
         return self.get_child().newtab(debugtab, cwd=cwd, profile=profile)
 
     def clone_tab(self, widget=None, debugtab=False, _param1=None, _param2=None):
         setCloningMode(True)
         
         self.tab_new(widget, debugtab, _param1, _param2)
+
+        setCloningMode(False)
 
     def on_delete_event(self, window, event, data=None):
         """Handle a window close request"""
@@ -476,9 +472,6 @@ class Window(Container, Gtk.Window):
     def split_axis(self, widget, vertical=True, cwd=None, sibling=None, widgetfirst=True):
         """Split the window"""
         exportEnv()
-
-        #dbg("cloningMode: %s" % getCloningMode())
-        #exit()
 
         if self.get_property('term_zoomed') == True:
             err("You can't split while a terminal is maximised/zoomed")

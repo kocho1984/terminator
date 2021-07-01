@@ -2,7 +2,6 @@
 # GPL v2 only
 """terminal.py - classes necessary to provide Terminal widgets"""
 
-from pynput.keyboard import Key, Controller
 
 import os
 import signal
@@ -198,9 +197,6 @@ class Terminal(Gtk.VBox):
 
         os.putenv('TERM', self.config['term'])
         os.putenv('COLORTERM', self.config['colorterm'])
-
-        # dbg(os.environ)
-        # exit()
 
         env_proxy = os.getenv('http_proxy')
         if not env_proxy:
@@ -1521,7 +1517,7 @@ class Terminal(Gtk.VBox):
                                                 None,
                                                 None)
         self.command = shell
-        dbg("_______________________%s" % args)
+        dbg("MaKo_______________________%s" % args)
         #exit()
 
         self.titlebar.update()

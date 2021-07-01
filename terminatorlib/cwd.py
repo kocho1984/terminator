@@ -13,7 +13,6 @@ import psutil
 from .util import dbg
 
 def get_pid_cwd(pid = None):
-    #MaKo
     """Determine the cwd of the current process"""
     psinfo =  psutil.Process(pid).as_dict()
     dbg('psinfo: %s %s' % (psinfo['cwd'],psinfo['pid']))
