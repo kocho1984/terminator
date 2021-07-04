@@ -1447,7 +1447,11 @@ class Terminal(Gtk.VBox):
         self.is_held_open = False
 
         options = self.config.options_get()
-        if options and options.command:
+
+        if getCloningMode():
+            command = "exec bash --rcfile <(cat /tmp/env.txt)"
+            setCloningMode(False)
+        elif options and options.command:
             command = options.command
             self.relaunch_command = command
             options.command = None
@@ -1466,9 +1470,6 @@ class Terminal(Gtk.VBox):
             dbg('spawning debug session with: %s:%s' % (details[0],
                 details[1]))
             command = 'telnet %s %s' % (details[0], details[1])
-        elif getCloningMode():
-            command = "exec bash --rcfile <(cat /tmp/env.txt)"
-            setCloningMode(False)
 
         # working directory set in layout config
         if self.directory:
